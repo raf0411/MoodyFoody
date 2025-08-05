@@ -52,16 +52,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
-//        lifecycleScope.launch {
-//            val signUpResult = authRepository.signUp("mamadoe123@example.com", "mamadoe123")
-//            if (signUpResult.isSuccess) {
-//                val user = signUpResult.getOrNull()
-//                user?.let {
-//                    val firestoreUser = UserData(it.uid, "Mama Doe", it.email ?: "")
-//                    firestoreRepository.addUser(firestoreUser)
-//                }
-//            }
-//        }
     }
 }
