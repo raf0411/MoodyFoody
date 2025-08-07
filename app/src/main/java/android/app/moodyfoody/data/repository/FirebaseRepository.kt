@@ -3,11 +3,15 @@ package android.app.moodyfoody.data.repository
 import android.app.moodyfoody.data.model.UserData
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FirestoreRepository {
-    private val db = FirebaseFirestore.getInstance()
+@Singleton
+class FirestoreRepository @Inject constructor(
+    private val db: FirebaseFirestore
+) : IFirestoreRepository {
 
-    suspend fun addUser(user: UserData): Result<Unit> {
+    override suspend fun addUser(user: UserData): Result<Unit> {
         return try {
             db.collection("users")
                 .document(user.id)
@@ -19,7 +23,7 @@ class FirestoreRepository {
         }
     }
 
-    suspend fun getUser(userId: String): Result<UserData?> {
+    override suspend fun getUser(userId: String): Result<UserData?> {
         return try {
             val document = db.collection("users")
                 .document(userId)
@@ -33,7 +37,7 @@ class FirestoreRepository {
         }
     }
 
-    suspend fun getAllUsers(): Result<List<UserData>> {
+    override suspend fun getAllUsers(): Result<List<UserData>> {
         return try {
             val snapshot = db.collection("users")
                 .get()

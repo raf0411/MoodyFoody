@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 val localProperties = Properties()
@@ -63,6 +65,11 @@ android {
 }
 
 dependencies {
+    // Hilt dependencies
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.common.ktx)
     implementation(libs.google.firebase.auth.ktx)

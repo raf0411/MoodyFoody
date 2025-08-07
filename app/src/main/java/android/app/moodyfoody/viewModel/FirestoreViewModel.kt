@@ -2,15 +2,18 @@ package android.app.moodyfoody.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import android.app.moodyfoody.data.repository.FirestoreRepository
+import android.app.moodyfoody.data.repository.IFirestoreRepository
 import android.app.moodyfoody.data.model.UserData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FirestoreViewModel(
-    private val firestoreRepository: FirestoreRepository = FirestoreRepository()
+@HiltViewModel
+class FirestoreViewModel @Inject constructor(
+    private val firestoreRepository: IFirestoreRepository
 ) : ViewModel() {
 
     private val _firestoreState = MutableStateFlow<FirestoreState>(FirestoreState.Idle)

@@ -2,18 +2,21 @@ package android.app.moodyfoody.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import android.app.moodyfoody.data.repository.AuthRepository
-import android.app.moodyfoody.data.repository.FirestoreRepository
+import android.app.moodyfoody.data.repository.IAuthRepository
+import android.app.moodyfoody.data.repository.IFirestoreRepository
 import android.app.moodyfoody.data.model.UserData
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class UserManagementViewModel(
-    private val authRepository: AuthRepository = AuthRepository(),
-    private val firestoreRepository: FirestoreRepository = FirestoreRepository()
+@HiltViewModel
+class UserManagementViewModel @Inject constructor(
+    private val authRepository: IAuthRepository,
+    private val firestoreRepository: IFirestoreRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UserManagementState>(UserManagementState.Idle)
