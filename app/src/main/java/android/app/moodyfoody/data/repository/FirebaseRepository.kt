@@ -1,9 +1,7 @@
 package android.app.moodyfoody.data.repository
 
-import android.annotation.SuppressLint
 import android.app.moodyfoody.data.model.UserData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
 import kotlinx.coroutines.tasks.await
 
 class FirestoreRepository {
@@ -21,29 +19,27 @@ class FirestoreRepository {
         }
     }
 
-    @SuppressLint("RestrictedApi")
-    suspend fun getUser(userId: String): Result<User?> {
+    suspend fun getUser(userId: String): Result<UserData?> {
         return try {
             val document = db.collection("users")
                 .document(userId)
                 .get()
                 .await()
 
-            val user = document.toObject(User::class.java)
+            val user = document.toObject(UserData::class.java)
             Result.success(user)
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    @SuppressLint("RestrictedApi")
-    suspend fun getAllUsers(): Result<List<User>> {
+    suspend fun getAllUsers(): Result<List<UserData>> {
         return try {
             val snapshot = db.collection("users")
                 .get()
                 .await()
 
-            val users = snapshot.toObjects(User::class.java)
+            val users = snapshot.toObjects(UserData::class.java)
             Result.success(users)
         } catch (e: Exception) {
             Result.failure(e)
